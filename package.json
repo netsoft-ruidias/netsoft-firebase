@@ -1,0 +1,53 @@
+{
+    "name": "@netsoft/firebase",
+    "description": "React Hooks for Firebase v9",
+    "version": "0.1.1",
+    "author": "Rui Dias",
+    "license": "MIT",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/netsoft-ruidias/netsoft-firebase.git"
+    },
+    "keywords": [
+        "netsoft",
+        "react",
+        "hooks",
+        "firebase"
+    ],
+    "dependencies": {
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "4.0.3",
+        "firebase": "^9.1.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "bugs": {
+        "url": "https://github.com/netsoft-ruidias/netsoft-firebase/issues"
+    },
+    "homepage": "https://github.com/netsoft-ruidias/netsoft-firebase#readme"
+}
