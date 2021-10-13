@@ -9,13 +9,27 @@
 ![contributors](https://img.shields.io/github/contributors/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 ![last commit](https://img.shields.io/github/last-commit/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 
-![stable version](https://img.shields.io/npm/v/@netsoft/firebase?label=Stable%20Version&style=for-the-badge)
+![stable version](https://img.shields.io/npm/v/@netsoft/firebase?label=Beta%20Version&style=for-the-badge)
 ![react dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/react?style=for-the-badge)
 ![firebase dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/firebase?style=for-the-badge)
 
 ## Firebase Hooks
 
 Collection of React Hooks for Firebase v9
+
+## Installation
+
+Install the Firebase NPM module and this package:
+
+```bash
+$ npm init
+$ npm install --save firebase
+$ npm install --save @netsoft/firebase
+```
+
+## Usage
+
+More instructions will come soon, stay tuned...
 
 ## MIT License
 
