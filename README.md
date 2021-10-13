@@ -1,7 +1,5 @@
 # Netsoft's react hooks for firebase
 
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@netsoft/firebase?style=for-the-badge)
-![downloads](https://img.shields.io/npm/dt/@netsoft/firebase?style=for-the-badge)
 ![license](https://img.shields.io/npm/l/@netsoft/firebase?style=for-the-badge)
 
 ![open issues](https://img.shields.io/github/issues-raw/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
@@ -9,7 +7,7 @@
 ![contributors](https://img.shields.io/github/contributors/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 ![last commit](https://img.shields.io/github/last-commit/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 
-![stable version](https://img.shields.io/npm/v/@netsoft/firebase?label=Beta%20Version&style=for-the-badge)
+![alpha version](https://img.shields.io/npm/v/@netsoft/firebase?label=Alpha%20Version&style=for-the-badge)
 ![react dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/react?style=for-the-badge)
 ![firebase dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/firebase?style=for-the-badge)
 
@@ -32,6 +30,8 @@ $ npm install --save @netsoft/firebase
 More instructions will come soon, stay tuned...
 
 ## MIT License
+
+![NPM](https://img.shields.io/npm/l/@netsoft/firebase?style=social)
 
 Copyright (c) 2010-2021, Netsoft® (Portugal) mail@netsoft.pt
 
