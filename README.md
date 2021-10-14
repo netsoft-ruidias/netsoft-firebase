@@ -282,6 +282,20 @@ You can use the SDKs to store images, audio, video, or other user-generated cont
 
 **Instructions will come soon, stay tuned...**
 
+# Questions & Discussions
+
+Please, do not hesitate to open an issue on GitHub for any question you might have. I'm always more than happy to hear any feedback.
+
+-   [GitHub Issues](https://github.com/netsoft-ruidias/netsoft-firebase/issues)
+
+# Contributions
+
+I'm excited that you are interested in contributing to this package!
+
+Anything from raising an issue, submitting an idea for a new feature, or making a pull request is welcome!
+
+Please contribute using Github Flow. Create a branch, add commits, and finally open a pull request.
+
 # MIT License
 
 ![NPM](https://img.shields.io/npm/l/@netsoft/firebase?style=social)
