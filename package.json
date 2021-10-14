@@ -1,7 +1,7 @@
 {
     "name": "@netsoft/firebase",
     "description": "React Hooks for Firebase v9",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "author": "Rui Dias",
     "license": "MIT",
     "private": false,
@@ -38,8 +38,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "babel src --out-dir dist --copy-files",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "publish": "npm publish --access public"
     },
     "eslintConfig": {
         "extends": [
