@@ -1,6 +1,6 @@
 # Netsoft's react hooks for firebase
 
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@netsoft/firebase?style=for-the-badge)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@netsoft/firebase?style=for-the-badge)
 ![downloads](https://img.shields.io/npm/dt/@netsoft/firebase?style=for-the-badge)
 ![license](https://img.shields.io/npm/l/@netsoft/firebase?style=for-the-badge)
 
@@ -10,7 +10,6 @@
 ![last commit](https://img.shields.io/github/last-commit/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 
 ![beta version](https://img.shields.io/npm/v/@netsoft/firebase?label=Beta%20Version&style=for-the-badge)
-![react dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/react?style=for-the-badge)
 ![firebase dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/firebase?style=for-the-badge)
 
 # Firebase Hooks
