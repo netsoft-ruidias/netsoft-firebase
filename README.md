@@ -1,5 +1,7 @@
 # Netsoft's react hooks for firebase
 
+![minzipped size](https://img.shields.io/bundlephobia/minzip/@netsoft/firebase?style=for-the-badge)
+![downloads](https://img.shields.io/npm/dt/@netsoft/firebase?style=for-the-badge)
 ![license](https://img.shields.io/npm/l/@netsoft/firebase?style=for-the-badge)
 
 ![open issues](https://img.shields.io/github/issues-raw/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
@@ -37,6 +39,8 @@ If you want to learn more about tree-shaking, please check this article [Using m
 
 4. Edit your `index.js` and inject the `FirebaseProvider` with your app's Firebase project configuration
 
+    To initialize Firebase in your app, you need to provide your app's Firebase project configuration. You can [obtain your Firebase config object](https://support.google.com/firebase/answer/7015592) at any time.
+
     ```javascript
     import { FirebaseProvider } from "@netsoft/firebase";
 
@@ -50,11 +54,7 @@ If you want to learn more about tree-shaking, please check this article [Using m
         messagingSenderId: "<messagingSenderId>",
         appId: "<appId>",
     };
-    ```
 
-    To initialize Firebase in your app, you need to provide your app's Firebase project configuration. You can [obtain your Firebase config object](https://support.google.com/firebase/answer/7015592) at any time.
-
-    ```javascript
     ReactDOM.render(
         <React.StrictMode>
             <FirebaseProvider config={firebaseConfig}>
@@ -107,7 +107,7 @@ FirebaseUI supports multiple sign-in providers. Visit the [documentation in GitH
     const { locale } = useAuth({ locale: "pt-PT" });
     ```
 
-    The locale is then injected into all providers that support localization.
+    > The locale is then injected into all providers that support localization.
 
     The available methods allow you to access the various signIn mechanisms:
 
@@ -242,18 +242,20 @@ Cloud Firestore is a flexible, scalable database for mobile, web, and server dev
 ### Fetch a single document
 
 1. To fetch a specific document, just use the `useDocument` hook:
+
     ```javascript
     const [data, isBusy, err] = useDocument("<collectionPath>", "<documentId>");
     ```
+
 2. If you need your data to be automaticaly updated when data changes in the backend, you can pass an optional options parameter with `snapshot: true`:
-
     ```javascript
-    const [data, isBusy, err, actions] = useCollection(<...>);
-    actions.create(<...>);
-
-    const [data, isBusy, err, actions] = useDocument(<...>);
-    actions.update(<...>);
-    actions.delete();
+    const [data, isBusy, err] = useDocument(
+        "<collectionPath>",
+        "<documentId>",
+        {
+            snapshot: true,
+        }
+    );
     ```
 
 ### Actions
@@ -261,12 +263,12 @@ Cloud Firestore is a flexible, scalable database for mobile, web, and server dev
 If you need to interact with your data (add; update; remove), just add an extra field to the hook:
 
 ```javascript
-const [data, isBusy, err] = useDocument("<collectionPath>", {
-    filter: [
-        ["Age", ">=", 18],
-        ["State", "==", "CA"],
-    ],
-});
+const [data, isBusy, err, actions] = useCollection("<...>");
+actions.create("<...>");
+
+const [data, isBusy, err, actions] = useDocument("<...>");
+actions.update("<...>");
+actions.delete();
 ```
 
 **More Instructions will come soon, stay tuned...**
