@@ -11,8 +11,7 @@ import { useFirebase } from "../context/useFirebase";
 /**
  * Fetch a collection of documents from firestore
  * @param {string} path the collection path
- * @param {boolean} snapshot [OPTIONAL] if true, listen to document changes
- * @param {Filter} filter [OPTIONAL] filter { field, operator, value }
+ * @param {ICollectionOptions} options [OPTIONAL]
  * @returns {data} the data fetched
  * @returns {err} the err object, if any
  * @returns {isBusy} the state

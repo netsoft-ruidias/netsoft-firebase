@@ -2,7 +2,19 @@ import { useCallback, useEffect, useState } from "react";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { useFirebase } from "../context/useFirebase";
 
-const useDocument = (path, docId, snapshot = false) => {
+/**
+ * Fetch a single document from firestore
+ * @param {string} path the document path
+ * @param {string} docId the document unique Id
+ * @param {IDocumentOptions} options [OPTIONAL]
+ * @returns {data} the data fetched
+ * @returns {err} the err object, if any
+ * @returns {isBusy} the state
+ * @example
+ *  const [data, err, isBusy] = useDocument("/users", "Xyz");
+ *  const [data, err, isBusy] = useDocument("/users", "Xyz", {snapshot: true});
+ */
+const useDocument = (path, docId, { snapshot } = {}) => {
     const { firestore } = useFirebase();
 
     const [data, setData] = useState({});

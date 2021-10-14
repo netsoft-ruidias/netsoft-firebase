@@ -1,11 +1,16 @@
 {
     "name": "@netsoft/firebase",
     "description": "React Hooks for Firebase v9",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "author": "Rui Dias",
     "license": "MIT",
     "private": false,
     "main": "dist/index.js",
+    "module": "dist/index.js",
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/netsoft-ruidias/netsoft-firebase.git"
@@ -17,7 +22,6 @@
         "firebase"
     ],
     "dependencies": {
-        "@babel/polyfill": "^7.12.1",
         "@babel/runtime": "^7.15.4",
         "firebase": "^9.1.2"
     },
@@ -38,6 +42,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "babel src --out-dir dist --copy-files",
+        "ts": "npx typescript ./src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
         "publish": "npm publish --access public"
     },
     "eslintConfig": {

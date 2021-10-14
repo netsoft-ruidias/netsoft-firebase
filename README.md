@@ -9,7 +9,7 @@
 ![contributors](https://img.shields.io/github/contributors/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 ![last commit](https://img.shields.io/github/last-commit/netsoft-ruidias/netsoft-firebase?style=for-the-badge)
 
-![alpha version](https://img.shields.io/npm/v/@netsoft/firebase?label=Alpha%20Version&style=for-the-badge)
+![beta version](https://img.shields.io/npm/v/@netsoft/firebase?label=Beta%20Version&style=for-the-badge)
 ![react dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/react?style=for-the-badge)
 ![firebase dependency version](https://img.shields.io/npm/dependency-version/@netsoft/firebase/firebase?style=for-the-badge)
 
