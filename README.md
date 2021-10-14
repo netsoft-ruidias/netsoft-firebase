@@ -91,52 +91,115 @@ FirebaseUI supports multiple sign-in providers. Visit the [documentation in GitH
 
 1. Import the Authentication Hook
     ```JavaScript
-    import { useFirebase } from "@netsoft/firebase";
+    import { useAuth } from "@netsoft/firebase";
     ```
-2. In your component, access the auth object through the hook
-    ```JavaScript
-    const { auth } = useFirebase();
-    ```
-3. The `auth` object give's you access to several properties and methods:
+2. In your component, access the auth object through the hook.
+
+    The `useAuth()` hook give's you access to several properties:
 
     ```JavaScript
-    // Access the user metadata, the error information (if any) and the state
-    const { user, isBusy, error } = auth;
+    // Access the user metadata, the error information (if any), the state and the locale (language)
+    const { user, isBusy, error, locale } = useAuth();
+    ```
 
-    // Access and use the `signInAnonymously` method
-    const { signInAnonymously } = auth;
+    The default language is inferred by the browser language, but if necessary, it is possible to set a custom language:
+
+    ```JavaScript
+    const { locale } = useAuth({ locale: 'pt-PT' });
+    ```
+
+    The locale is then injected into all providers that support localization.
+
+    The available methods allow you to access the various signIn mechanisms:
+
+    ```JavaScript
+    // Access and use the `signInAnonymously` and the `signInWithEmailAndPassword` methods
+    const { signInAnonymously, signInWithEmailAndPassword } = useAuth();
     signInAnonymously();
-
-    // Access and use the `signInWithEmailAndPassword` method
-    const { signInWithEmailAndPassword } = auth;
-    signInWithEmailAndPassword(email, password)
-
-    // Access and use the `signInWithEmailAndPassword` method
-    const { signInWithEmailAndPassword } = auth;
-    signInWithEmailAndPassword(email, password)
-
-    // Access and use the Google SignIn methods
-    const { signInWithGooglePopup, signInWithGoogleRedirect } = auth;
-    signInWithGooglePopup();
-    signInWithGoogleRedirect();
-
-    // Access and use the Facebook SignIn methods
-    const { signInWithFacebookPopup, signInWithFacebookRedirect } = auth;
-    signInWithFacebookPopup();
-    signInWithFacebookRedirect();
-
-    // Access and use the Microsoft SignIn methods
-    const { signInWithMicrosoftPopup, signInWithMicrosoftRedirect } = auth;
-    signInWithMicrosoftPopup();
-    signInWithMicrosoftRedirect();
+    signInWithEmailAndPassword(email, password);
     ```
 
-4. SignOut
+    ```JavaScript
+    // Access and use the Google SignIn methods
+    const { signInWithGoogle } = useAuth();
+    signInWithGoogle();
+    // optionally you can also indicate a list of scopes and other options:
+    const scopes = [ 'https://www.googleapis.com/auth/contacts.readonly' ]
+    signInWithGoogle(scopes);
+    signInWithGoogle(scopes, { popup: true });
+    ```
 
     ```JavaScript
-    // Access the user metadata, the error information (if any) and the state
-    const { actions } = auth;
-    actions.signOut();
+    // Access and use the Facebook SignIn methods
+    const { signInWithFacebook } = useAuth();
+    signInWithFacebook();
+    // optionally you can also indicate a list of scopes and other options:
+    const scopes = [ 'user_birthday' ];
+    signInWithFacebook(scopes);
+    signInWithFacebook(scopes, { popup: true });
+    ```
+
+    ```JavaScript
+    // Access and use the Twitter SignIn methods
+    const { signInWithTwitter } = useAuth();
+    signInWithTwitter();
+    signInWithTwitter(null, { popup: true });
+    ```
+
+    ```JavaScript
+    // Access and use the GitHub SignIn methods
+    const { signInWithGitHub } = useAuth();
+    signInWithGitHub();
+    const scopes = [ 'repo' ];
+    signInWithGitHub(scopes);
+    signInWithGitHub(scopes, { popup: true });
+    ```
+
+    ```JavaScript
+    // Access and use the Microsoft SignIn methods
+    const { signInWithMicrosoft } = useAuth();
+    signInWithMicrosoft();
+    // optionally you can also indicate a list of scopes and other options:
+    const scopes = [ 'mail.read', 'calendars.read' ];
+    signInWithFacebook(scopes);
+    signInWithFacebook(scopes, {
+        popup: true,
+        // Target specific email with login hint.
+        login_hint: 'user@firstadd.onmicrosoft.com',
+        // Optional "tenant" parameter in case you are using an Azure AD tenant.
+        tenant: 'TENANT_ID'
+    });
+    ```
+
+    ```JavaScript
+    // Access and use the Apple SignIn methods
+    const { signInWithApple } = useAuth();
+    signInWithApple();
+    // optionally you can also indicate a list of scopes and other options:
+    const scopes = [ 'email', 'name' ];
+    signInWithApple(scopes);
+    signInWithApple(scopes, { popup: true });
+    ```
+
+    ```JavaScript
+    // Access and use the Yahoo SignIn methods
+    const { signInWithYahoo } = useAuth();
+    signInWithYahoo();
+    // optionally you can also indicate a list of scopes and other options:
+    const scopes = [ 'mail-r', 'sdct-w' ];
+    signInWithYahoo(scopes);
+    signInWithYahoo(scopes, {
+        popup: true,
+        // Prompt user to re-authenticate to Yahoo.
+        prompt: 'login'
+    });
+    ```
+
+3. SignOut
+
+    ```JavaScript
+    const { signOut } = useAuth();
+    signOut();
     ```
 
 ## Cloud Firestore
@@ -152,63 +215,63 @@ Cloud Firestore is a flexible, scalable database for mobile, web, and server dev
 
 1. To fetch a collection of document, just use the `useCollection` hook:
     ```JavaScript
-        const [data, isBusy, err] = useCollection(
-            "<collectionPath>");
+    const [data, isBusy, err] = useCollection(
+        "<collectionPath>");
     ```
 2. If you need your collection to be automaticaly updated when data changes in the backend, you can pass an optional options parameter with `snapshot: true`:
     ```JavaScript
-        const [data, isBusy, err] = useCollection(
-            "<collectionPath>",
-            { snapshot: true });
+    const [data, isBusy, err] = useCollection(
+        "<collectionPath>",
+        { snapshot: true });
     ```
 3. If you want to filter your data, the fill the `filter` property in the options parameter:
     ```JavaScript
-        const [data, isBusy, err] = useCollection(
-            "<collectionPath>",
-            { filter: ["Age", ">=", 18] });
+    const [data, isBusy, err] = useCollection(
+        "<collectionPath>",
+        { filter: ["Age", ">=", 18] });
     ```
     the filter row must contain always three items: "FieldName"; "Operator"; "Value"
 4. The `filter` property can also be an array of rows, if you need more than one criteria:
     ```JavaScript
-        const [data, isBusy, err] = useCollection(
-            "<collectionPath>",
-            { filter: [
-                ["Age", ">=", 18],
-                ["State", "==", "CA"]
-            ] });
+    const [data, isBusy, err] = useCollection(
+        "<collectionPath>",
+        { filter: [
+            ["Age", ">=", 18],
+            ["State", "==", "CA"]
+        ] });
     ```
 
 ### Fetch a single document
 
 1. To fetch a specific document, just use the `useDocument` hook:
     ```JavaScript
-        const [data, isBusy, err] = useDocument(
-            "<collectionPath>",
-            "<documentId>");
+    const [data, isBusy, err] = useDocument(
+        "<collectionPath>",
+        "<documentId>");
     ```
 2. If you need your data to be automaticaly updated when data changes in the backend, you can pass an optional options parameter with `snapshot: true`:
 
     ```JavaScript
-        const [data, isBusy, err, actions] = useCollection(<...>);
-        actions.create(<...>);
+    const [data, isBusy, err, actions] = useCollection(<...>);
+    actions.create(<...>);
 
-        const [data, isBusy, err, actions] = useDocument(<...>);
-        actions.update(<...>);
-        actions.delete();
+    const [data, isBusy, err, actions] = useDocument(<...>);
+    actions.update(<...>);
+    actions.delete();
     ```
 
 ### Actions
 
 If you need to interact with your data (add; update; remove), just add an extra field to the hook:
 
-    ```JavaScript
-        const [data, isBusy, err] = useDocument(
-            "<collectionPath>",
-            { filter: [
-                ["Age", ">=", 18],
-                ["State", "==", "CA"]
-            ] });
-    ```
+```JavaScript
+const [data, isBusy, err] = useDocument(
+    "<collectionPath>",
+    { filter: [
+        ["Age", ">=", 18],
+        ["State", "==", "CA"]
+    ] });
+```
 
 **More Instructions will come soon, stay tuned...**
 

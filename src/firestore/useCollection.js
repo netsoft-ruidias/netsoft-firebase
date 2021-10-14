@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
     collection,
     query,
@@ -6,10 +6,10 @@ import {
     onSnapshot,
     getDocs,
 } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { useFirebase } from "../context/useFirebase";
 
 /**
- * Fetch a collection of documents from firebase/firestore
+ * Execute a debounced 'action' with a defined delay on state changes
  * @param {string} path the collection path
  * @param {boolean} snapshot [OPTIONAL] if true, listen to document changes
  * @param {Filter} filter [OPTIONAL] filter { field, operator, value }
@@ -19,15 +19,16 @@ import { firestore } from "../firebase";
  * @example
  *  const [data, err, isBusy] = useCollection("/users");
  *  const [data, err, isBusy] = useCollection("/users", {snapshot: true});
- *  const [data, err, isBusy] = useCollection("/users", {filter: ["Age", ">=", 18]});
- *  const [data, err, isBusy] = useCollection("/users", {filter: [["Age", ">=", 18], ["Age", "<=", 25]]});
+ *  const [data, err, isBusy] = useCollection("/users", {snapshot: true, filter: ["Num", ">=", 2]});
  */
 const useCollection = (path, { snapshot, filter } = {}) => {
+    const { firestore } = useFirebase();
+
     const [data, setData] = useState(undefined);
     const [err, setErr] = useState(undefined);
     const [isBusy, setBusy] = useState(false);
 
-    const queryRef = useMemo(() => {
+    const createQuery = () => {
         let queryRef = collection(firestore, path);
 
         if (filter === undefined) {
@@ -42,7 +43,7 @@ const useCollection = (path, { snapshot, filter } = {}) => {
         }
 
         return query(queryRef, where(filter[0], filter[1], filter[2]));
-    }, [path, filter]);
+    };
 
     const fetchSnapshot = useCallback((query, signal) => {
         return onSnapshot(
@@ -106,6 +107,8 @@ const useCollection = (path, { snapshot, filter } = {}) => {
         const fetchData = async () => {
             setBusy(true);
 
+            const queryRef = createQuery();
+
             if (snapshot || false) {
                 unsubscribe = fetchSnapshot(queryRef, signal);
             } else {
@@ -120,7 +123,7 @@ const useCollection = (path, { snapshot, filter } = {}) => {
                 unsubscribe();
             }
         };
-    }, [snapshot, filter, queryRef, fetchSnapshot, fetchDocs]);
+    }, []);
 
     return [data, isBusy, err];
 };

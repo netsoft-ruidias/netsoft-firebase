@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { useFirebase } from "../context/useFirebase";
 
 const useDocument = (path, docId, snapshot = false) => {
+    const { firestore } = useFirebase();
+
     const [data, setData] = useState({});
     const [err, setErr] = useState(undefined);
     const [isBusy, setBusy] = useState(false);
@@ -26,7 +28,7 @@ const useDocument = (path, docId, snapshot = false) => {
                 }
             );
         },
-        [path, docId]
+        [path, docId, firestore]
     );
 
     const fetchDoc = useCallback(
@@ -49,7 +51,7 @@ const useDocument = (path, docId, snapshot = false) => {
                 }
             }
         },
-        [path, docId]
+        [path, docId, firestore]
     );
 
     useEffect(() => {
