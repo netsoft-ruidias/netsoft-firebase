@@ -1,7 +1,7 @@
 {
     "name": "@netsoft/firebase",
     "description": "React Hooks for Firebase v9",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "author": "Rui Dias",
     "license": "MIT",
     "private": false,
