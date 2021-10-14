@@ -1,7 +1,7 @@
 {
     "name": "@netsoft/firebase",
     "description": "React Hooks for Firebase v9",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "author": "Rui Dias",
     "license": "MIT",
     "private": false,
@@ -22,7 +22,12 @@
         "react-scripts": "4.0.3",
         "firebase": "^9.1.2"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-transform-runtime": "^7.12.10",
+        "@babel/preset-env": "^7.12.10",
+        "@babel/preset-react": "^7.12.10"
+    },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
