@@ -9,7 +9,7 @@ import {
 import { useFirebase } from "../context/useFirebase";
 
 /**
- * Execute a debounced 'action' with a defined delay on state changes
+ * Fetch a collection of documents from firestore
  * @param {string} path the collection path
  * @param {boolean} snapshot [OPTIONAL] if true, listen to document changes
  * @param {Filter} filter [OPTIONAL] filter { field, operator, value }
