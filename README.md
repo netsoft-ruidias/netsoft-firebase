@@ -33,13 +33,11 @@ If you want to learn more about tree-shaking, please check this article [Using m
 
 3. Create a Firestore App (or you can use your own)
 
-    ```MarkDown
-    If you haven't already, create a Firebase project: In the Firebase console, click **Add project**, then follow the on-screen instructions to create a Firebase project or to add Firebase services to an existing GCP project.
-    ```
+    > If you haven't already, create a Firebase project: In the Firebase console, click **Add project**, then follow the on-screen instructions to create a Firebase project or to add Firebase services to an existing GCP project.
 
 4. Edit your `index.js` and inject the `FirebaseProvider` with your app's Firebase project configuration
 
-    ```JavaScript
+    ```javascript
     import { FirebaseProvider } from "@netsoft/firebase";
 
     // TODO: Replace the following with your app's Firebase project configuration
@@ -56,14 +54,15 @@ If you want to learn more about tree-shaking, please check this article [Using m
 
     To initialize Firebase in your app, you need to provide your app's Firebase project configuration. You can [obtain your Firebase config object](https://support.google.com/firebase/answer/7015592) at any time.
 
-    ```JavaScript
+    ```javascript
     ReactDOM.render(
         <React.StrictMode>
             <FirebaseProvider config={firebaseConfig}>
                 <App />
             </FirebaseProvider>
         </React.StrictMode>,
-        document.getElementById("root"));
+        document.getElementById("root")
+    );
     ```
 
 5. That's it! You are now ready to go...
@@ -90,108 +89,108 @@ FirebaseUI supports multiple sign-in providers. Visit the [documentation in GitH
 ### Authentication Hook
 
 1. Import the Authentication Hook
-    ```JavaScript
+    ```javascript
     import { useAuth } from "@netsoft/firebase";
     ```
 2. In your component, access the auth object through the hook.
 
     The `useAuth()` hook give's you access to several properties:
 
-    ```JavaScript
+    ```javascript
     // Access the user metadata, the error information (if any), the state and the locale (language)
     const { user, isBusy, error, locale } = useAuth();
     ```
 
     The default language is inferred by the browser language, but if necessary, it is possible to set a custom language:
 
-    ```JavaScript
-    const { locale } = useAuth({ locale: 'pt-PT' });
+    ```javascript
+    const { locale } = useAuth({ locale: "pt-PT" });
     ```
 
     The locale is then injected into all providers that support localization.
 
     The available methods allow you to access the various signIn mechanisms:
 
-    ```JavaScript
+    ```javascript
     // Access and use the `signInAnonymously` and the `signInWithEmailAndPassword` methods
     const { signInAnonymously, signInWithEmailAndPassword } = useAuth();
     signInAnonymously();
     signInWithEmailAndPassword(email, password);
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Google SignIn methods
     const { signInWithGoogle } = useAuth();
     signInWithGoogle();
     // optionally you can also indicate a list of scopes and other options:
-    const scopes = [ 'https://www.googleapis.com/auth/contacts.readonly' ]
+    const scopes = ["https://www.googleapis.com/auth/contacts.readonly"];
     signInWithGoogle(scopes);
     signInWithGoogle(scopes, { popup: true });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Facebook SignIn methods
     const { signInWithFacebook } = useAuth();
     signInWithFacebook();
     // optionally you can also indicate a list of scopes and other options:
-    const scopes = [ 'user_birthday' ];
+    const scopes = ["user_birthday"];
     signInWithFacebook(scopes);
     signInWithFacebook(scopes, { popup: true });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Twitter SignIn methods
     const { signInWithTwitter } = useAuth();
     signInWithTwitter();
     signInWithTwitter(null, { popup: true });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the GitHub SignIn methods
     const { signInWithGitHub } = useAuth();
     signInWithGitHub();
-    const scopes = [ 'repo' ];
+    const scopes = ["repo"];
     signInWithGitHub(scopes);
     signInWithGitHub(scopes, { popup: true });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Microsoft SignIn methods
     const { signInWithMicrosoft } = useAuth();
     signInWithMicrosoft();
     // optionally you can also indicate a list of scopes and other options:
-    const scopes = [ 'mail.read', 'calendars.read' ];
+    const scopes = ["mail.read", "calendars.read"];
     signInWithFacebook(scopes);
     signInWithFacebook(scopes, {
         popup: true,
         // Target specific email with login hint.
-        login_hint: 'user@firstadd.onmicrosoft.com',
+        login_hint: "user@firstadd.onmicrosoft.com",
         // Optional "tenant" parameter in case you are using an Azure AD tenant.
-        tenant: 'TENANT_ID'
+        tenant: "TENANT_ID",
     });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Apple SignIn methods
     const { signInWithApple } = useAuth();
     signInWithApple();
     // optionally you can also indicate a list of scopes and other options:
-    const scopes = [ 'email', 'name' ];
+    const scopes = ["email", "name"];
     signInWithApple(scopes);
     signInWithApple(scopes, { popup: true });
     ```
 
-    ```JavaScript
+    ```javascript
     // Access and use the Yahoo SignIn methods
     const { signInWithYahoo } = useAuth();
     signInWithYahoo();
     // optionally you can also indicate a list of scopes and other options:
-    const scopes = [ 'mail-r', 'sdct-w' ];
+    const scopes = ["mail-r", "sdct-w"];
     signInWithYahoo(scopes);
     signInWithYahoo(scopes, {
         popup: true,
         // Prompt user to re-authenticate to Yahoo.
-        prompt: 'login'
+        prompt: "login",
     });
     ```
 
@@ -207,51 +206,48 @@ FirebaseUI supports multiple sign-in providers. Visit the [documentation in GitH
 Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud. It keeps your data in sync across client apps through realtime listeners and offers offline support for mobile and web so you can build responsive apps that work regardless of network latency or Internet connectivity. Cloud Firestore also offers seamless integration with other Firebase and Google Cloud products, including Cloud Functions.
 
 1. Import the Document or the Collection Hooks
-    ```JavaScript
+    ```javascript
     import { useDocument, useCollection } from "@netsoft/firebase";
     ```
 
 ### Fetch a colletion of documents
 
 1. To fetch a collection of document, just use the `useCollection` hook:
-    ```JavaScript
-    const [data, isBusy, err] = useCollection(
-        "<collectionPath>");
+    ```javascript
+    const [data, isBusy, err] = useCollection("<collectionPath>");
     ```
 2. If you need your collection to be automaticaly updated when data changes in the backend, you can pass an optional options parameter with `snapshot: true`:
-    ```JavaScript
-    const [data, isBusy, err] = useCollection(
-        "<collectionPath>",
-        { snapshot: true });
+    ```javascript
+    const [data, isBusy, err] = useCollection("<collectionPath>", {
+        snapshot: true,
+    });
     ```
 3. If you want to filter your data, the fill the `filter` property in the options parameter:
-    ```JavaScript
-    const [data, isBusy, err] = useCollection(
-        "<collectionPath>",
-        { filter: ["Age", ">=", 18] });
+    ```javascript
+    const [data, isBusy, err] = useCollection("<collectionPath>", {
+        filter: ["Age", ">=", 18],
+    });
     ```
     the filter row must contain always three items: "FieldName"; "Operator"; "Value"
 4. The `filter` property can also be an array of rows, if you need more than one criteria:
-    ```JavaScript
-    const [data, isBusy, err] = useCollection(
-        "<collectionPath>",
-        { filter: [
+    ```javascript
+    const [data, isBusy, err] = useCollection("<collectionPath>", {
+        filter: [
             ["Age", ">=", 18],
-            ["State", "==", "CA"]
-        ] });
+            ["State", "==", "CA"],
+        ],
+    });
     ```
 
 ### Fetch a single document
 
 1. To fetch a specific document, just use the `useDocument` hook:
-    ```JavaScript
-    const [data, isBusy, err] = useDocument(
-        "<collectionPath>",
-        "<documentId>");
+    ```javascript
+    const [data, isBusy, err] = useDocument("<collectionPath>", "<documentId>");
     ```
 2. If you need your data to be automaticaly updated when data changes in the backend, you can pass an optional options parameter with `snapshot: true`:
 
-    ```JavaScript
+    ```javascript
     const [data, isBusy, err, actions] = useCollection(<...>);
     actions.create(<...>);
 
@@ -264,13 +260,13 @@ Cloud Firestore is a flexible, scalable database for mobile, web, and server dev
 
 If you need to interact with your data (add; update; remove), just add an extra field to the hook:
 
-```JavaScript
-const [data, isBusy, err] = useDocument(
-    "<collectionPath>",
-    { filter: [
+```javascript
+const [data, isBusy, err] = useDocument("<collectionPath>", {
+    filter: [
         ["Age", ">=", 18],
-        ["State", "==", "CA"]
-    ] });
+        ["State", "==", "CA"],
+    ],
+});
 ```
 
 **More Instructions will come soon, stay tuned...**
