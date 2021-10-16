@@ -10,8 +10,9 @@ export interface IDocumentOptions {
  * @returns {data} the data fetched
  * @returns {err} the err object, if any
  * @returns {isBusy} the state
+ * @returns {actions} the 'update()' action
  * @example
  *  const [data, err, isBusy] = useDocument("/users", "Xyz");
  *  const [data, err, isBusy] = useDocument("/users", "Xyz", {snapshot: true});
  */
-export function useDocument(path: string, docId: string, options?: IDocumentOptions): [object, object, boolean];
+export function useDocument(path: string, docId: string, options?: IDocumentOptions): [object, object, boolean, object];

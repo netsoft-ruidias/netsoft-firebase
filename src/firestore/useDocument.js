@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { useFirebase } from "../context/useFirebase";
 
 /**
@@ -10,6 +10,7 @@ import { useFirebase } from "../context/useFirebase";
  * @returns {data} the data fetched
  * @returns {err} the err object, if any
  * @returns {isBusy} the state
+ * @returns {actions} the 'update()' action
  * @example
  *  const [data, err, isBusy] = useDocument("/users", "Xyz");
  *  const [data, err, isBusy] = useDocument("/users", "Xyz", {snapshot: true});
@@ -23,6 +24,7 @@ const useDocument = (path, docId, { snapshot } = {}) => {
 
     const fetchSnapshot = useCallback(
         (signal) => {
+            console.log("useDocument", "useCallback", "fetchSnapshot");
             return onSnapshot(
                 doc(firestore, path, docId),
                 (res) => {
@@ -45,6 +47,7 @@ const useDocument = (path, docId, { snapshot } = {}) => {
 
     const fetchDoc = useCallback(
         async (signal) => {
+            console.log("useDocument", "useCallback", "fetchDoc");
             try {
                 const res = await getDoc(doc(firestore, path, docId));
 
@@ -90,7 +93,13 @@ const useDocument = (path, docId, { snapshot } = {}) => {
         };
     }, [snapshot, fetchSnapshot, fetchDoc]);
 
-    return [data, isBusy, err];
+    const update = async (data) => {
+        console.log("useDocument", "update", data);
+        const ref = doc(firestore, path, docId);
+        await updateDoc(ref, data);
+    };
+
+    return [data, isBusy, err, { update }];
 };
 
 export { useDocument };

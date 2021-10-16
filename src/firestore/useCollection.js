@@ -5,6 +5,10 @@ import {
     where,
     onSnapshot,
     getDocs,
+    doc,
+    setDoc,
+    addDoc,
+    deleteDoc,
 } from "firebase/firestore";
 import { useFirebase } from "../context/useFirebase";
 
@@ -15,6 +19,7 @@ import { useFirebase } from "../context/useFirebase";
  * @returns {data} the data fetched
  * @returns {err} the err object, if any
  * @returns {isBusy} the state
+ * @returns {actions} the 'add()' and 'remove()' actions
  * @example
  *  const [data, err, isBusy] = useCollection("/users");
  *  const [data, err, isBusy] = useCollection("/users", {snapshot: true});
@@ -99,6 +104,7 @@ const useCollection = (path, { snapshot, filter } = {}) => {
     }, []);
 
     useEffect(() => {
+        console.log("useCollection", path);
         const abortController = new AbortController();
         const signal = abortController.signal;
         let unsubscribe = undefined;
@@ -124,7 +130,24 @@ const useCollection = (path, { snapshot, filter } = {}) => {
         };
     }, []);
 
-    return [data, isBusy, err];
+    const add = async (data, id = null) => {
+        if (id) {
+            const ref = doc(firestore, path, id);
+            await setDoc(ref, data);
+            return id;
+        } else {
+            const ref = collection(firestore, path);
+            const doc = await addDoc(ref, data);
+            return doc.id;
+        }
+    };
+
+    const remove = async (id) => {
+        const ref = doc(firestore, path, id);
+        await deleteDoc(ref);
+    };
+
+    return [data, isBusy, err, { add, remove }];
 };
 
 export { useCollection };

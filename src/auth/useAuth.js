@@ -2,28 +2,27 @@ import { useEffect, useState } from "react";
 import {
     signInAnonymously,
     signInWithEmailAndPassword,
+    signInWithCustomToken,
     signOut,
     onAuthStateChanged,
     getRedirectResult,
 } from "firebase/auth";
 import { useFirebase } from "../context/useFirebase";
 import { useSignInWithProvider } from "./useSignInWithProvider";
+import { userMapper } from "./userMapper";
 
 const useAuth = (options) => {
     const { auth } = useFirebase();
     const [isBusy, setBusy] = useState(false);
-    const [user, setUser] = useState({});
     const [error, setError] = useState({});
 
     const [signIn] = useSignInWithProvider(() => {
         setError(error);
-        setUser(auth.currentUser ?? {});
         setBusy(false);
     });
 
     const errorHandle = (error) => {
         setError(error);
-        setUser(auth.currentUser ?? {});
         setBusy(false);
     };
 
@@ -42,7 +41,6 @@ const useAuth = (options) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setError({});
-            setUser(user ?? {});
             setBusy(false);
         });
 
@@ -52,9 +50,9 @@ const useAuth = (options) => {
     }, [auth]);
 
     return {
-        user,
-        error,
+        user: userMapper.Map(auth.currentUser),
         isBusy,
+        error,
         locale: auth.languageCode,
         signInAnonymously: () => {
             setBusy(true);
@@ -63,6 +61,12 @@ const useAuth = (options) => {
         signInWithEmailAndPassword: (email, password) => {
             setBusy(true);
             signInWithEmailAndPassword(auth, email, password).catch((error) =>
+                errorHandle(error)
+            );
+        },
+        signInWithCustomToken: (token) => {
+            setBusy(true);
+            signInWithCustomToken(auth, token).catch((error) =>
                 errorHandle(error)
             );
         },

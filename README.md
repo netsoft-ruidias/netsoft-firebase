@@ -159,8 +159,8 @@ FirebaseUI supports multiple sign-in providers. Visit the [documentation in GitH
     signInWithMicrosoft();
     // optionally you can also indicate a list of scopes and other options:
     const scopes = ["mail.read", "calendars.read"];
-    signInWithFacebook(scopes);
-    signInWithFacebook(scopes, {
+    signInWithMicrosoft(scopes);
+    signInWithMicrosoft(scopes, {
         popup: true,
         // Target specific email with login hint.
         login_hint: "user@firstadd.onmicrosoft.com",
@@ -262,15 +262,29 @@ Cloud Firestore is a flexible, scalable database for mobile, web, and server dev
 If you need to interact with your data (add; update; remove), just add an extra field to the hook:
 
 ```javascript
-const [data, isBusy, err, actions] = useCollection("<...>");
-actions.create("<...>");
+const [data, isBusy, err, actions] = useCollection(path);
+actions.add(newDoc); // let Cloud Firestore auto-generate an ID
+actions.add(newDoc, id); // specify an ID for the document to create
+actions.remove(id);
 
-const [data, isBusy, err, actions] = useDocument("<...>");
-actions.update("<...>");
-actions.delete();
+const [data, isBusy, err, actions] = useDocument(path, id);
+actions.update(data);
 ```
 
-**More Instructions will come soon, stay tuned...**
+### Timestamps
+
+You can set a field in your document to a server timestamp which tracks when the server receives the update.
+When updating multiple timestamp fields inside of a transaction, each field receives the same server timestamp value.
+
+```javascript
+const { Timestamp, serverTimestamp } = useTimestamp();
+const data = {
+    stringExample: "Hello world!",
+    dateExample: Timestamp.fromDate(new Date("December 10, 1815")),
+    timestamp: serverTimestamp(),
+    (...)
+}
+```
 
 ## Storage
 
